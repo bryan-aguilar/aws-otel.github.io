@@ -60,6 +60,8 @@ jobs:
         with:
           ref: smoke-test
       - name: merge commit push
+        env:
+          GITHUB_TOKEN: ${{ secrets.demo }}
         run: |
           git config --global user.name 'Gatsby Publish Workflow'
           git config --global user.email 'gatsby-publish-workflow@users.noreply.github.com'
