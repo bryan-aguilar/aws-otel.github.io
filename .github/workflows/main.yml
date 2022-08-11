@@ -67,4 +67,4 @@ jobs:
           git config --global user.email 'gatsby-publish-workflow@users.noreply.github.com'
           git fetch --all
           git remote -v
-          git push -f origin/gh-pages
+          git push -f origin gh-pages
