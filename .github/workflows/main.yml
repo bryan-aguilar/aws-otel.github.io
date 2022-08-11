@@ -64,5 +64,5 @@ jobs:
           git config --global user.name 'Gatsby Publish Workflow'
           git config --global user.email 'gatsby-publish-workflow@users.noreply.github.com'
           git fetch --all
-          git merge origin/smoke-test --commit --no-edit
+          git merge origin/smoke-test --commit --no-edit --allow-unrelated-histories
           git push
