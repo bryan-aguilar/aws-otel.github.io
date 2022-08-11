@@ -39,7 +39,7 @@ jobs:
           ref: gh-pages
       - name: Calculate total lines in published branche
         run: |
-          export PUB_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
+          export PUB_LC=$(find ./published -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
           echo $ST_LC
           echo "PUBLISHED_LINE_COUNT=$PUB_LC" >> $GITHUB_ENV
       - name: Generate percentile diff
