@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: published
+          ref: gh-pages
       - name: merge commit push
         run: |
           git config --global user.name 'Gatsby Publish Workflow'
