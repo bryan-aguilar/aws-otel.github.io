@@ -29,7 +29,7 @@ jobs:
           ref: smoke-test
       - name: Calculate total lines in smoke-test branche
         run: |
-          export $ST_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
+          export ST_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
           echo $ST_LC
           echo "SMOKE_TEST_LINE_COUNT=$ST_LC" >> $GITHUB_ENV
       - name: Checkout Published Branch
@@ -39,8 +39,8 @@ jobs:
           ref: gh-pages
       - name: Calculate total lines in published branche
         run: |
-          export $PUB_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
-          echo #ST_LC
+          export PUB_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
+          echo $ST_LC
           echo "PUBLISHED_LINE_COUNT=$PUB_LC" >> $GITHUB_ENV
       - name: Generate percentile diff
         run: |
