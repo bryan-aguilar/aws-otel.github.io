@@ -4,9 +4,8 @@ env:
   DELTA_THRESHOLD: .90
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    
 
 jobs:
   smoke-test-publish:
@@ -30,6 +29,7 @@ jobs:
       - name: Calculate total lines in smoke-test branche
         run: |
           export $ST_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
+          echo $ST_LC
           echo "SMOKE_TEST_LINE_COUNT=$ST_LC" >> $GITHUB_ENV
       - name: Checkout Published Branch
         uses: actions/checkout@v3
@@ -39,25 +39,14 @@ jobs:
       - name: Calculate total lines in published branche
         run: |
           export $PUB_LC=$(find ./smoke-test -type f -print0 | wc -l --files0=- | tail -n 1 | cut -d ' ' -f 1)
+          echo #ST_LC
           echo "PUBLISHED_LINE_COUNT=$PUB_LC" >> $GITHUB_ENV
       - name: Generate percentile diff
         run: |
           export PERCENTILE_DIFF=$(bc<<<"scale=2;${{ env.SMOKE_TEST_LINE_COUNT}} / ${{ env.PUBLISHED_LINE_COUNT }}")
+          echo $PERCENTILE_DIFF
           if [ 1 -eq $(bc<<<"$PERCENTILE_DIFF < ${{ env.DELTA_THRESHOLD }}") ]; then
             exit 1
           else
             exit 0
           fi
-
-  build:
-    needs: smoke-test-verify
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: enriikke/gatsby-gh-pages-action@v2
-        env:
-          GH_API_KEY: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          access-token: ${{ secrets.demo }}
-          deploy-branch: gh-pages
-#          gatsby-args: --prefix-paths
