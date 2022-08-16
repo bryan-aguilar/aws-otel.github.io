@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: smoke-test
+          ref: gh-pages
       - name: merge commit push
         env:
           GITHUB_TOKEN: ${{ secrets.demo }}
@@ -67,4 +67,5 @@ jobs:
           git config --global user.email 'gatsby-publish-workflow@users.noreply.github.com'
           git fetch --all
           git remote -v
+          git reset --hard origin/smoke-test
           git push -f origin gh-pages
