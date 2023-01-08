@@ -65,7 +65,7 @@
     "multer": "1.4.4-lts.1"
   },
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "prettier": "^2.8.2"
   },
   "keywords": [
     "gatsby",
